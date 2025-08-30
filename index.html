@@ -1,0 +1,450 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Schmocard — NFC Google Review & Digital Business Cards</title>
+
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
+
+    :root{
+      --cream: #fff8f2;
+      --brown-900: #4b2f1f;
+      --brown-700: #6b4028;
+      --accent-1: #f6caa3;
+      --accent-2: #f0a86b;
+      --card: #fffdfb;
+      --muted: #8a6b55;
+    }
+    body{ font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; background: var(--cream); color:var(--brown-900); -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; }
+    .logo-font{ font-family: 'Fredoka One', Inter, sans-serif; letter-spacing: -0.4px; }
+    .soft-card { box-shadow: 0 12px 30px rgba(88,60,43,0.06); background: var(--card); border-radius: 14px; border: 1px solid rgba(107,64,40,0.06); }
+    .btn-primary { background: linear-gradient(180deg,var(--accent-2), #b86b3f); color: #fff; }
+    .btn-outline { border: 1.5px solid rgba(107,64,40,0.12); color: var(--brown-700); background: transparent; }
+    .pill { background: linear-gradient(90deg,#fff3e6, rgba(246,202,163,0.18)); color: var(--brown-700); padding: 6px 10px; border-radius: 999px; font-weight:600; font-size:13px;}
+    details > summary { list-style: none; cursor: pointer; padding: 12px 14px; border-radius:10px; }
+    .toasted { background: linear-gradient(180deg,#f7e6d8,#f1dac4); border-radius: 14px; padding: 16px; border: 1px solid rgba(107,64,40,0.05); box-shadow: 0 10px 20px rgba(99,73,56,0.04); }
+    /* small responsive tweaks */
+    @media (max-width: 880px) {
+      .hero-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="sticky top-0 z-40 bg-white/60 backdrop-blur border-b border-b-[rgba(107,64,40,0.04)]">
+    <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-lg bg-[radial-gradient(circle_at_30%_20%,#fbe7d2,#f3d4b9)] flex items-center justify-center">
+          <!-- tiny s'more icon -->
+          <svg width="22" height="16" viewBox="0 0 26 20" fill="none" xmlns="http://www.w3.org/2000/svg" class="">
+            <rect x="0.5" y="9" width="25" height="8" rx="2.5" fill="#8B5E3C"/>
+            <rect x="0.5" y="2.5" width="25" height="6" rx="2.5" fill="#E0A97B"/>
+            <circle cx="13" cy="9" r="3.8" fill="#fff"/>
+          </svg>
+        </div>
+        <div>
+          <div class="logo-font text-lg text-[var(--brown-900)]">Schmocard</div>
+          <div class="text-xs text-[var(--muted)] -mt-0.5">S'more than a card</div>
+        </div>
+      </div>
+
+      <nav class="hidden md:flex items-center gap-6 text-sm text-[var(--brown-700)]">
+        <a href="#cards" class="hover:text-[var(--brown-900)]">Cards</a>
+        <a href="#how" class="hover:text-[var(--brown-900)]">How it works</a>
+        <a href="#dashboard" class="hover:text-[var(--brown-900)]">Dashboard</a>
+        <a href="#linkinbio" class="hover:text-[var(--brown-900)]">Link in bio</a>
+        <a href="#faq" class="hover:text-[var(--brown-900)]">FAQ</a>
+        <a href="#shop" class="ml-4 inline-flex items-center gap-2 btn-primary text-white px-4 py-2 rounded-lg">Buy Now</a>
+      </nav>
+
+      <div class="md:hidden">
+        <button aria-label="Open menu" class="p-2 rounded-md border border-[rgba(107,64,40,0.06)]">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero (mascot holding a card) -->
+  <section class="pt-10 pb-12">
+    <div class="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-8 items-center hero-grid">
+      <div>
+        <div class="pill inline-block">S'more reviews. S'more leads. 🔥</div>
+        <h1 class="mt-6 text-3xl md:text-4xl font-extrabold leading-tight text-[var(--brown-900)]">NFC cards for quick reviews & creative digital business cards</h1>
+        <p class="mt-4 text-[15px] text-[var(--muted)] max-w-xl">Make it effortless for customers to leave Google reviews and share your profile — beautiful cards, a sweet dashboard, and a free link-in-bio for everyone.</p>
+
+        <div class="mt-6 flex flex-wrap gap-3">
+          <a href="#cards" class="inline-flex items-center gap-2 btn-primary px-4 py-2 rounded-lg shadow-sm">Get Started</a>
+          <button onclick="document.getElementById('demoModal').classList.remove('hidden')" class="inline-flex items-center gap-2 btn-outline px-4 py-2 rounded-lg">Try a Tap Demo</button>
+        </div>
+
+        <div class="mt-5 flex gap-3 text-xs text-[var(--muted)]">
+          <span class="bg-[rgba(107,64,40,0.06)] px-3 py-1 rounded-md">No app needed</span>
+          <span class="bg-[rgba(107,64,40,0.06)] px-3 py-1 rounded-md">Instant tap via NFC</span>
+          <span class="bg-[rgba(107,64,40,0.06)] px-3 py-1 rounded-md">Playful s'more branding</span>
+        </div>
+      </div>
+
+      <!-- Mascot illustration + card -->
+      <div class="flex justify-center md:justify-end">
+        <div class="soft-card w-[380px] p-6 relative overflow-visible">
+          <!-- Mascot SVG -->
+          <div class="flex items-center gap-4">
+            <svg width="140" height="120" viewBox="0 0 140 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="8" y="40" width="124" height="62" rx="12" fill="#f3d8c1"/>
+              <rect x="22" y="48" width="100" height="46" rx="10" fill="#fff"/>
+              <!-- marshmallow face -->
+              <ellipse cx="70" cy="26" rx="36" ry="26" fill="#fff"/>
+              <circle cx="60" cy="23" r="3.5" fill="#4b2f1f"/>
+              <circle cx="80" cy="23" r="3.5" fill="#4b2f1f"/>
+              <path d="M56 30 q14 10 28 0" stroke="#4b2f1f" stroke-linecap="round" stroke-width="2" fill="none"/>
+              <!-- graham top -->
+              <rect x="12" y="6" width="116" height="22" rx="6" fill="#d8ad83"/>
+              <!-- small card floating -->
+              <rect x="86" y="62" width="56" height="34" rx="6" fill="#fff" stroke="#f0d2b3"/>
+              <rect x="92" y="68" width="36" height="6" rx="3" fill="#f5e0c9"/>
+              <rect x="92" y="78" width="20" height="6" rx="3" fill="#f0d2b3"/>
+            </svg>
+
+            <!-- Slight card preview on right -->
+            <div class="ml-2">
+              <div class="w-36 h-22 rounded-xl bg-gradient-to-b from-[#fff] to-[#fff7ed] border border-[rgba(107,64,40,0.04)] p-3">
+                <div class="h-3 w-20 rounded bg-[#f1cdb1] mb-2"></div>
+                <div class="h-2 w-12 rounded bg-[#f1d9bf]"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Accent gradient behind -->
+          <div style="position:absolute; inset:auto -18px -18px -18px; height:40px; width:110px; right:14px; filter:blur(22px); opacity:0.12; background:linear-gradient(90deg,var(--accent-1),var(--accent-2)); border-radius:50%;"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Cards section (with inline illustrated mockups) -->
+  <section id="cards" class="pb-14">
+    <div class="max-w-6xl mx-auto px-6">
+      <h2 class="text-2xl font-bold text-[var(--brown-900)] mb-3">Pick your Schmocard</h2>
+      <p class="text-sm text-[var(--muted)] mb-6">Three tasty options for collecting reviews and sharing your profile.</p>
+
+      <div class="grid md:grid-cols-3 gap-6">
+        <!-- Custom Design -->
+        <div class="soft-card p-6">
+          <div class="flex gap-4 items-start">
+            <!-- mockup SVG -->
+            <div class="w-28 h-18 rounded-lg bg-white shadow-inner p-2 border border-[rgba(107,64,40,0.03)]">
+              <svg viewBox="0 0 220 140" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+                <rect x="8" y="8" width="204" height="124" rx="12" fill="#fef8f5"/>
+                <rect x="20" y="20" width="120" height="30" rx="6" fill="#f6caa3"/>
+                <rect x="20" y="62" width="180" height="14" rx="6" fill="#f0d2b3"/>
+                <rect x="20" y="84" width="130" height="12" rx="6" fill="#f1d9bf"/>
+              </svg>
+            </div>
+
+            <div class="flex-1">
+              <div class="text-xs text-[var(--muted)]">Custom Design</div>
+              <h3 class="font-semibold text-[var(--brown-900)] mt-1">Custom Design Card</h3>
+              <p class="text-sm text-[var(--muted)] mt-2">We design a unique card for your brand: colors, shape, and premium finishes.</p>
+              <ul class="mt-3 text-sm text-[var(--muted)] list-disc ml-5 space-y-1">
+                <li>Bespoke layout & colors</li>
+                <li>NFC + QR fallback</li>
+                <li>PVC or metal options</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="mt-6 flex items-center justify-between">
+            <div class="text-xl font-bold">$59</div>
+            <div class="flex gap-3">
+              <button class="btn-primary px-3 py-2 rounded-lg">Add to Cart</button>
+              <button class="btn-outline px-3 py-2 rounded-lg">Details</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Google Review NFC -->
+        <div class="soft-card p-6">
+          <div class="flex gap-4 items-start">
+            <div class="w-28 h-18 rounded-lg bg-white shadow-inner p-2 border border-[rgba(107,64,40,0.03)] flex items-center justify-center">
+              <svg viewBox="0 0 220 140" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+                <rect x="8" y="8" width="204" height="124" rx="12" fill="#fff"/>
+                <circle cx="60" cy="54" r="18" fill="#DB4437"/>
+                <circle cx="84" cy="54" r="18" fill="#0F9D58"/>
+                <circle cx="72" cy="74" r="18" fill="#4285F4"/>
+                <rect x="110" y="38" width="78" height="28" rx="6" fill="#f0d2b3"/>
+                <rect x="110" y="74" width="48" height="12" rx="6" fill="#f1d9bf"/>
+              </svg>
+            </div>
+
+            <div class="flex-1">
+              <div class="text-xs text-[var(--muted)]">Google Reviews</div>
+              <h3 class="font-semibold text-[var(--brown-900)] mt-1">Google Review NFC Card</h3>
+              <p class="text-sm text-[var(--muted)] mt-2">One tap takes customers straight to your Google review form—no searching required.</p>
+              <ul class="mt-3 text-sm text-[var(--muted)] list-disc ml-5 space-y-1">
+                <li>Deep-link to Google review modal</li>
+                <li>Works on iOS & Android</li>
+                <li>Fallback QR included</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="mt-6 flex items-center justify-between">
+            <div class="text-xl font-bold">$49</div>
+            <div class="flex gap-3">
+              <button class="btn-primary px-3 py-2 rounded-lg">Add to Cart</button>
+              <button class="btn-outline px-3 py-2 rounded-lg">Details</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Digital -->
+        <div class="soft-card p-6">
+          <div class="flex gap-4 items-start">
+            <div class="w-28 h-18 rounded-lg bg-white shadow-inner p-2 border border-[rgba(107,64,40,0.03)]">
+              <svg viewBox="0 0 220 140" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+                <rect x="8" y="8" width="204" height="124" rx="12" fill="#fff"/>
+                <rect x="20" y="24" width="180" height="18" rx="8" fill="#f1cdb1"/>
+                <rect x="20" y="54" width="120" height="12" rx="6" fill="#f0d2b3"/>
+                <rect x="20" y="80" width="160" height="10" rx="6" fill="#f1d9bf"/>
+              </svg>
+            </div>
+
+            <div class="flex-1">
+              <div class="text-xs text-[var(--muted)]">Digital</div>
+              <h3 class="font-semibold text-[var(--brown-900)] mt-1">Digital Business Card</h3>
+              <p class="text-sm text-[var(--muted)] mt-2">Share contact, socials and a mini-portfolio with a single link. Great for teams.</p>
+              <ul class="mt-3 text-sm text-[var(--muted)] list-disc ml-5 space-y-1">
+                <li>Unlimited edits</li>
+                <li>Analytics included</li>
+                <li>Save to Apple/Google Wallet</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="mt-6 flex items-center justify-between">
+            <div class="text-xl font-bold">Free <span class="text-sm text-[var(--muted)]">/ $0</span></div>
+            <div class="flex gap-3">
+              <button class="btn-primary px-3 py-2 rounded-lg">Build Free Link</button>
+              <button class="btn-outline px-3 py-2 rounded-lg">Details</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How it works -->
+  <section id="how" class="py-12">
+    <div class="max-w-6xl mx-auto px-6">
+        <p style="padding: 0px 0px 20px 0px; font-size:25px;"><b>How Schmocard works </b></p>
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="soft-card p-6">
+          <h4 class="font-semibold text-[var(--brown-900)]">1) Create</h4>
+          <p class="text-sm text-[var(--muted)] mt-2">Choose a card flavor and customize your brand frostings. We print and encode NFC for you.</p>
+        </div>
+        <div class="soft-card p-6">
+          <h4 class="font-semibold text-[var(--brown-900)]">2) Tap</h4>
+          <p class="text-sm text-[var(--muted)] mt-2">Customer taps their phone; NFC opens the review modal or your hosted link instantly.</p>
+        </div>
+        <div class="soft-card p-6">
+          <h4 class="font-semibold text-[var(--brown-900)]">3) Grow</h4>
+          <p class="text-sm text-[var(--muted)] mt-2">Collect reviews, track taps, and update links from your dashboard.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Dashboard preview (pill tabs) -->
+  <section id="dashboard" class="py-12">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="text-2xl font-bold text-[var(--brown-900)]">User Dashboard</h2>
+        <div class="flex gap-2">
+          <button class="px-3 py-1 rounded-full border border-[rgba(107,64,40,0.06)] bg-white text-sm">Cards</button>
+          <button class="px-3 py-1 rounded-full border border-[rgba(107,64,40,0.06)] bg-[rgba(240,210,179,0.18)] text-sm">Analytics</button>
+          <button class="px-3 py-1 rounded-full border border-[rgba(107,64,40,0.06)] bg-white text-sm">Settings</button>
+        </div>
+      </div>
+
+      <div class="soft-card p-6">
+        <div class="grid md:grid-cols-3 gap-6">
+          <div>
+            <label class="text-xs text-[var(--muted)]">Search</label>
+            <input class="w-full rounded-md border border-[rgba(107,64,40,0.06)] p-3" placeholder="Find a card..." />
+            <div class="mt-4 space-y-3">
+              <div class="flex items-center justify-between bg-white p-3 rounded-lg border border-[rgba(107,64,40,0.03)]">
+                <div><div class="text-sm font-medium">Front Desk — Review Tap</div><div class="text-xs text-[var(--muted)]">NFC: review</div></div>
+                <input type="checkbox" checked class="w-5 h-5 accent-[#b57b5a]"/>
+              </div>
+              <div class="flex items-center justify-between bg-white p-3 rounded-lg border border-[rgba(107,64,40,0.03)]">
+                <div><div class="text-sm font-medium">Owner — Digital Card</div><div class="text-xs text-[var(--muted)]">Hosted link</div></div>
+                <input type="checkbox" checked class="w-5 h-5 accent-[#b57b5a]"/>
+              </div>
+            </div>
+          </div>
+
+          <div class="md:col-span-2">
+            <div class="bg-white rounded-lg p-4 border border-[rgba(107,64,40,0.03)]">
+              <div class="grid md:grid-cols-2 gap-4">
+                <div>
+                  <label class="text-xs text-[var(--muted)]">Card Name</label>
+                  <input class="w-full rounded-md border border-[rgba(107,64,40,0.06)] p-3 mt-1" value="Front Desk — Review Tap" />
+                </div>
+                <div>
+                  <label class="text-xs text-[var(--muted)]">Google Review Link</label>
+                  <input class="w-full rounded-md border border-[rgba(107,64,40,0.06)] p-3 mt-1" value="https://g.page/r/EXAMPLE/review" />
+                </div>
+                <div class="md:col-span-2">
+                  <label class="text-xs text-[var(--muted)]">QR fallback URL</label>
+                  <input class="w-full rounded-md border border-[rgba(107,64,40,0.06)] p-3 mt-1" value="https://schmocard.com/yourbrand" />
+                </div>
+              </div>
+
+              <div class="mt-4 flex gap-3">
+                <button class="btn-primary px-4 py-2 rounded-lg">Save Changes</button>
+                <button class="btn-outline px-4 py-2 rounded-lg">Simulate NFC Tap</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Link in Bio (toasted card preview) -->
+  <section id="linkinbio" class="py-12">
+    <div class="max-w-6xl mx-auto px-6">
+      <h2 class="text-2xl font-bold text-[var(--brown-900)] mb-4">Free Link in Bio</h2>
+      <p class="text-sm text-[var(--muted)] mb-6">Create a shareable hub — free forever.</p>
+
+      <div class="grid md:grid-cols-2 gap-6">
+        <div class="soft-card p-6">
+          <label class="text-xs text-[var(--muted)]">Handle</label>
+          <div class="mt-2 flex items-center gap-2">
+            <span class="text-sm text-[var(--muted)] bg-white p-3 rounded-l-md border border-r-0">schmocard.com/</span>
+            <input class="flex-1 p-3 rounded-r-md border border-[rgba(107,64,40,0.06)]" placeholder="yourname" />
+          </div>
+
+          <label class="text-xs text-[var(--muted)] mt-4 block">Title</label>
+          <input class="w-full p-3 rounded-md border border-[rgba(107,64,40,0.06)] mt-1" placeholder="Hi, I'm Lio — let's connect" />
+
+          <label class="text-xs text-[var(--muted)] mt-4 block">Bio</label>
+          <textarea class="w-full p-3 rounded-md border border-[rgba(107,64,40,0.06)] mt-1" rows="3" placeholder="Short intro, what you do, and a call-to-action."></textarea>
+
+          <div class="mt-4 grid gap-3">
+            <input class="w-full p-3 rounded-md border border-[rgba(107,64,40,0.06)]" placeholder="Website (https://example.com)" />
+            <input class="w-full p-3 rounded-md border border-[rgba(107,64,40,0.06)]" placeholder="Instagram (https://instagram.com/you)" />
+            <input class="w-full p-3 rounded-md border border-[rgba(107,64,40,0.06)]" placeholder="LinkedIn(https://linkedin.com/you)" />
+            <div class="flex gap-3">
+              <button class="btn-primary px-4 py-2 rounded-lg">Publish</button>
+              <button class="btn-outline px-4 py-2 rounded-lg">Copy URL</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="toasted">
+          <div class="flex items-center gap-3">
+            <div class="w-12 h-12 rounded-full bg-[var(--accent-1)]"></div>
+            <div>
+              <div class="font-semibold text-[var(--brown-900)]">Your Title</div>
+              <div class="text-xs text-[var(--muted)]">schmocard.com/handle</div>
+            </div>
+          </div>
+
+          <div class="mt-4 space-y-3">
+            <a class="block text-center py-3 rounded-lg bg-[rgba(107,64,40,0.06)]">Website</a>
+            <a class="block text-center py-3 rounded-lg bg-[rgba(107,64,40,0.06)]">Instagram</a>
+            <a class="block text-center py-3 rounded-lg bg-[rgba(107,64,40,0.06)]">LinkedIn</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq" class="py-12">
+    <div class="max-w-6xl mx-auto px-6">
+      <h2 class="text-2xl font-bold text-[var(--brown-900)] mb-4">FAQ</h2>
+
+      <div class="space-y-3">
+        <details class="soft-card p-3">
+          <summary class="flex items-center justify-between">
+            <span>Does NFC work without an app?</span>
+            <span class="text-[var(--muted)]">▸</span>
+          </summary>
+          <div class="mt-2 text-sm text-[var(--muted)]">Yes — the NFC tag can open a URL or deep link directly in the user's browser. No separate app required for most devices.</div>
+        </details>
+
+        <details class="soft-card p-3">
+          <summary class="flex items-center justify-between">
+            <span>How do Google reviews open?</span>
+            <span class="text-[var(--muted)]">▸</span>
+          </summary>
+          <div class="mt-2 text-sm text-[var(--muted)]">We encode a Google review deep link (with place ID) so the review modal opens directly on tap.</div>
+        </details>
+
+        <details class="soft-card p-3">
+          <summary class="flex items-center justify-between">
+            <span>Can I use Link-in-Bio without a card?</span>
+            <span class="text-[var(--muted)]">▸</span>
+          </summary>
+          <div class="mt-2 text-sm text-[var(--muted)]">Absolutely — the Link-in-Bio is free and works independently of physical cards.</div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="border-t border-[rgba(107,64,40,0.04)] mt-8">
+    <div class="max-w-6xl mx-auto px-6 py-8 flex flex-col md:flex-row items-center justify-between text-sm text-[var(--muted)]">
+      <div class="flex items-center gap-3">
+        <div class="logo-font text-base text-[var(--brown-900)]">Schmocard</div>
+        <div>© <span id="year"></span> Schmocard • Developed By WebDevTaslima 🔥</div>
+      </div>
+      <div class="flex gap-4 mt-3 md:mt-0">
+        <a href="#" class="hover:text-[var(--brown-900)]">Terms</a>
+        <a href="#" class="hover:text-[var(--brown-900)]">Privacy</a>
+        <a href="#" class="hover:text-[var(--brown-900)]">Support</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Demo Modal -->
+  <div id="demoModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4">
+    <div class="bg-white rounded-xl p-6 w-full max-w-lg">
+      <h3 class="font-semibold text-[var(--brown-900)]">Tap Demo</h3>
+      <p class="text-sm text-[var(--muted)] mt-2">This modal simulates an NFC tap; in production this would open your Google review modal or hosted link.</p>
+      <div class="mt-4 flex justify-end gap-2">
+        <button onclick="document.getElementById('demoModal').classList.add('hidden')" class="btn-outline px-3 py-2 rounded-lg">Close</button>
+        <button class="btn-primary px-3 py-2 rounded-lg">Simulate Tap</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // set copyright year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // open/close demo modal with escape key
+    document.addEventListener('keydown', (e) => {
+      if(e.key === 'Escape') {
+        const m = document.getElementById('demoModal');
+        if (!m.classList.contains('hidden')) m.classList.add('hidden');
+      }
+    });
+
+    // details caret rotate (small UI nicety)
+    document.querySelectorAll('details').forEach(d=>{
+      d.addEventListener('toggle', () => {
+        if(d.open) d.querySelector('summary span').textContent = '▾'; else d.querySelector('summary span').textContent = '▸';
+      });
+    });
+  </script>
+</body>
+</html>
